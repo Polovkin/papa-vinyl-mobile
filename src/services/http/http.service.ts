@@ -2,11 +2,12 @@ const headers = {
   Accept: 'application/json, text/plain, */*',
   'Content-Type': 'application/json;charset=utf-8',
 };
-const baseUrl = 'http://192.168.31.221:8080/api';
+// @ts-ignore
+import {BASE_URL} from '@env';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
-    const path = baseUrl + url;
+    const path = BASE_URL + url;
 
     const response = await fetch(path, {
       credentials: 'include',

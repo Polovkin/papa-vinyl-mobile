@@ -4,7 +4,8 @@ import type {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query';
 import {fetchBaseQuery} from '@reduxjs/toolkit/query';
-
+// @ts-ignore
+import {BASE_URL} from '@env';
 import {store} from '../../store';
 import {LOGOUT, SET_ACCESS_TOKEN} from '../../store/auth/auth.slice';
 import AsyncStorageService, {
@@ -21,7 +22,7 @@ export enum HTTP_METHODS {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://192.168.31.221:8080/api',
+  baseUrl: BASE_URL,
   prepareHeaders: async headers => {
     const accessToken = await AsyncStorageService.getItem<string>(
       STORAGE_KEYS.ACCESS_TOKEN,
