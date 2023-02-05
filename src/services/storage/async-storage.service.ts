@@ -33,6 +33,14 @@ class AsyncStorageService {
       console.error(error);
     }
   }
+
+  async clear(): Promise<void> {
+    try {
+      await this.asyncStorage.clear();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default new AsyncStorageService();

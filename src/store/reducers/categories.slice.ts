@@ -1,5 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
-import httpBaseQuery, {HTTP_METHODS} from '../../services/http/http.base-query';
+import customBaseQuery, {
+  HTTP_METHODS,
+} from '../../services/http/custom-base.query';
 import {API_TAGS} from '../../../types/store.types';
 import {IPage, IQueryParams} from '../../../types';
 import {CategoryRequest, ICategory} from '../../../types/categories.types';
@@ -9,7 +11,7 @@ const path = '/categories';
 
 export const categoriesSlice = createApi({
   reducerPath: 'categoriesApi',
-  baseQuery: httpBaseQuery,
+  baseQuery: customBaseQuery,
   tagTypes: [API_TAGS.CATEGORY],
   endpoints: build => ({
     getCategories: build.query<IPage<ICategory>, IQueryParams>({

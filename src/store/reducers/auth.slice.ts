@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {IUser} from '../../../types/user.types';
 import {LOGIN} from '../actions/auth-async.actions';
-//import AsyncStorageService from '../../services/storage/async-storage.service';
+import AsyncStorageService from '../../services/storage/async-storage.service';
 
 interface IAuthState {
   user: IUser | null;
@@ -30,20 +30,12 @@ export const authSlice = createSlice({
     SET_USER: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
     },
-    INIT_USER_AUTH: () => {
-      /*  const userData = LocalstorageService.getItem<UserStorage>(
-        StoragesKeys.USER,
-      );*/
-      // state.user = userData?.user ?? null;
-      // state.auth.isAuthenticated = userData?.isAuthenticated ?? false;
-    },
     LOGOUT: state => {
       state.user = null;
       state.auth.accessToken = null;
       state.auth.isAuthenticated = false;
 
-      // CookieService.deleteCookie(StoragesKeys.USER);
-      // LocalstorageService.removeItem(StoragesKeys.USER);
+      AsyncStorageService.clear().then(r => console.log(r));
     },
   },
   extraReducers: builder => {
@@ -60,16 +52,6 @@ export const authSlice = createSlice({
       state.user = user;
       state.auth.accessToken = accessToken;
       state.auth.isAuthenticated = isAuthenticated;
-
-      /* const UserLocalStorage = {
-        user,
-        isAuthenticated,
-      };*/
-
-      /* AsyncStorageService.setItem<UserStorage>(
-        StoragesKeys.USER,
-        UserLocalStorage,
-      );*/
     });
 
     builder.addCase(LOGIN.rejected, state => {
@@ -79,5 +61,5 @@ export const authSlice = createSlice({
     });
   },
 });
-export const {SET_ACCESS_TOKEN, INIT_USER_AUTH, LOGOUT} = authSlice.actions;
+export const {SET_ACCESS_TOKEN, LOGOUT} = authSlice.actions;
 export default authSlice.reducer;
