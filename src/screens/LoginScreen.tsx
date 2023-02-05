@@ -1,10 +1,10 @@
 import {useAppSelector} from '../hooks';
 import {Text, View} from 'react-native';
-import ButtonPrimary from './ButtonPrimary/button-primary';
+import ButtonPrimary from '../components/ButtonPrimary/button-primary';
 import React from 'react';
 import {useGetCategoriesQuery} from '../store/api/categories.slice';
 
-const Login = () => {
+const LoginScreen = () => {
   const Auth = useAppSelector(state => state.auth);
 
   const {data: categories} = useGetCategoriesQuery({limit: 40});
@@ -25,4 +25,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;
