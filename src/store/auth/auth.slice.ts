@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {IUser} from '../../../types/user.types';
-import {LOGIN} from '../actions/auth-async.actions';
+import {LOGIN} from './auth-async.actions';
 import AsyncStorageService from '../../services/storage/async-storage.service';
 
 interface IAuthState {

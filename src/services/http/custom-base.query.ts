@@ -6,7 +6,7 @@ import type {
 import {fetchBaseQuery} from '@reduxjs/toolkit/query';
 
 import {store} from '../../store';
-import {LOGOUT, SET_ACCESS_TOKEN} from '../../store/reducers/auth.slice';
+import {LOGOUT, SET_ACCESS_TOKEN} from '../../store/auth/auth.slice';
 import AsyncStorageService, {
   STORAGE_KEYS,
 } from '../storage/async-storage.service';
