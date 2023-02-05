@@ -21,7 +21,7 @@ export enum HTTP_METHODS {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api/',
+  baseUrl: 'http://192.168.31.221:8080/api',
   prepareHeaders: async headers => {
     const accessToken = await AsyncStorageService.getItem<string>(
       STORAGE_KEYS.ACCESS_TOKEN,

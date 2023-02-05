@@ -2,17 +2,20 @@ import React from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
 
 import {Provider} from 'react-redux';
-import {store} from './src/store';
+import {persistor, store} from './src/store';
 import Login from './src/components/Login';
+import {PersistGate} from 'redux-persist/integration/react';
 
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Login />
-        </ScrollView>
-      </SafeAreaView>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaView>
+          <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <Login />
+          </ScrollView>
+        </SafeAreaView>
+      </PersistGate>
     </Provider>
   );
 }

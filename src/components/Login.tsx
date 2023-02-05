@@ -1,22 +1,30 @@
-import {LOGIN} from '../store/auth/auth-async.actions';
-import {useAppDispatch} from '../hooks';
-import {View} from 'react-native';
+import {useAppSelector} from '../hooks';
+import {Text, View} from 'react-native';
 import ButtonPrimary from './ButtonPrimary/button-primary';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useGetCategoriesQuery} from '../store/api/categories.slice';
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const login = async () => {
-    const credentials = {
-      username: 'papavinyl-admin',
-      password: 'polova1141',
-    };
-    dispatch(LOGIN(credentials));
-  };
+  const Auth = useAppSelector(state => state.auth);
+
+  const {data: categories} = useGetCategoriesQuery({limit: 40});
+
+  const fetchData = async () => {};
+
+  useEffect(() => {
+    console.log(categories);
+  }, [categories]);
 
   return (
     <View>
-      <ButtonPrimary text={'Login'} onPress={login} />
+      <ButtonPrimary text={'Login'} onPress={fetchData} />
+      <Text>{Auth.auth.accessToken}</Text>
+      {categories &&
+        categories?.content.map(c => (
+          <View key={c.id}>
+            <Text>{c.name}</Text>
+          </View>
+        ))}
     </View>
   );
 };
