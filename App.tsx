@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import ButtonPrimary from './src/components/button-primary';
+import ButtonPrimary from './src/components/ButtonPrimary/button-primary';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -37,7 +37,7 @@ function App(): JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Text className={'text-red-600'}>ButtonPrimary</Text>
-          <ButtonPrimary text={'button'} onPress={onPress} />
+          <ButtonPrimary text={'button hujuton'} onPress={onPress} />
         </View>
       </ScrollView>
     </SafeAreaView>
