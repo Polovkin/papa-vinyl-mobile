@@ -1,7 +1,9 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {IUser} from '../../../types/user.types';
 import {LOGIN} from './auth-async.actions';
-import AsyncStorageService from '../../services/storage/async-storage.service';
+import AsyncStorageService, {
+  STORAGE_KEYS,
+} from '../../services/storage/async-storage.service';
 
 interface IAuthState {
   user: IUser | null;
@@ -52,6 +54,8 @@ export const authSlice = createSlice({
       state.user = user;
       state.auth.accessToken = accessToken;
       state.auth.isAuthenticated = isAuthenticated;
+
+      AsyncStorageService.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
     });
 
     builder.addCase(LOGIN.rejected, state => {

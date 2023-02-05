@@ -14,7 +14,7 @@ const LOGIN = createAsyncThunk<LoginResponse, LoginPayload, {state: RootState}>(
   AUTH_ACTIONS.LOGIN,
   async (credentials, {rejectWithValue}) => {
     try {
-      return HttpService.post<LoginResponse>('/auth/login', credentials);
+      return await HttpService.post<LoginResponse>('/auth/login', credentials);
     } catch (err: unknown) {
       const error = err as Response;
 
