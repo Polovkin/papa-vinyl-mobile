@@ -3,11 +3,11 @@ const headers = {
   'Content-Type': 'application/json;charset=utf-8',
 };
 // @ts-ignore
-import {BASE_URL} from '@env';
+//import {BASE_URL} from '@env';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
-    const path = BASE_URL + url;
+    const path = 'http://192.168.31.82/api' + url;
 
     const response = await fetch(path, {
       credentials: 'include',
