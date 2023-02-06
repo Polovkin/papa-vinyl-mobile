@@ -3,6 +3,10 @@ import ButtonPrimary from './button-primary';
 import {render, fireEvent} from '@testing-library/react-native';
 
 describe('ButtonPrimary', () => {
+  it('to match snapshot', () => {
+    const {toJSON} = render(<ButtonPrimary text={'button'} />);
+    expect(toJSON()).toMatchSnapshot();
+  });
   it('renders text', () => {
     const {getByText} = render(<ButtonPrimary text={'button'} />);
     const text = getByText('button');
