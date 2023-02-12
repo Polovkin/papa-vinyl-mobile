@@ -5742,10 +5742,10 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-papa-vinyl-types@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/papa-vinyl-types/-/papa-vinyl-types-2.0.8.tgz#c3a212e8e7efd80f297578107925bc8351cdee73"
-  integrity sha512-5p8Vn/67scQsvALAvlQADXcMNr0TnPkH3sJ5K9fLAznIXTBFwAkxr8DeckGD1nQe7y7JqF95xjchi8Bi7e/fNA==
+papa-vinyl-types@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/papa-vinyl-types/-/papa-vinyl-types-2.0.24.tgz#8ae536363cb4af2db85b41ef87811b1001ed1fdf"
+  integrity sha512-f3JamYKBL1yRpdkHZwxjyWruzfZk8bge9EJVuC68KylH6OrA36N2GbCt/Y19vJC4w/NJQJCttcwiCq5i4QsiXw==
 
 parent-module@^1.0.0:
   version "1.0.1"
