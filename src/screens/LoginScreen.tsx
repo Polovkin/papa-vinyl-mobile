@@ -1,10 +1,16 @@
 import {useAppSelector} from '../hooks';
-import {Text, View} from 'react-native';
+import {Button, Text, View} from 'react-native';
 import ButtonPrimary from '../components/ButtonPrimary/button-primary';
-import React from 'react';
+import React, {FC} from 'react';
 import {useGetCategoriesQuery} from '../store/api/categories.slice';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../navigation/RootNavigation';
 
-const LoginScreen = () => {
+interface Props {
+  navigation: NativeStackNavigationProp<RootStackParamList>;
+}
+
+const LoginScreen: FC<Props> = ({navigation}) => {
   const Auth = useAppSelector(state => state.auth);
 
   const {data: categories} = useGetCategoriesQuery({limit: 40});
@@ -14,6 +20,10 @@ const LoginScreen = () => {
   return (
     <View>
       <ButtonPrimary text={'Login'} onPress={fetchData} />
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Welcome')}
+      />
       <Text>{Auth.auth.accessToken}</Text>
       {categories &&
         categories?.content.map(c => (
