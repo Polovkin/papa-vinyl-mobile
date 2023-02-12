@@ -4,8 +4,11 @@ import customBaseQuery, {
 } from '../../services/http/custom-base.query';
 import {API_TAGS} from '../../../types/store.types';
 import {IPage, IQueryParams} from '../../../types';
-import {CategoryRequest, ICategory} from '../../../types/categories.types';
 import setQueryParams from '../../functions';
+import {
+  CategoryRequest,
+  ICategory,
+} from '../../../types/vendors/categories.types';
 
 const path = '/categories';
 

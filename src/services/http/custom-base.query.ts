@@ -5,7 +5,7 @@ import type {
 } from '@reduxjs/toolkit/query';
 import {fetchBaseQuery} from '@reduxjs/toolkit/query';
 // @ts-ignore
-import {BASE_URL} from '@env';
+//import {BASE_URL} from '@env';
 import {store} from '../../store';
 import {LOGOUT, SET_ACCESS_TOKEN} from '../../store/auth/auth.slice';
 import AsyncStorageService, {
@@ -22,7 +22,7 @@ export enum HTTP_METHODS {
 }
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_URL,
+  baseUrl: 'http://192.168.31.82/api',
   prepareHeaders: async headers => {
     const accessToken = await AsyncStorageService.getItem<string>(
       STORAGE_KEYS.ACCESS_TOKEN,
