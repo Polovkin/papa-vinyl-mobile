@@ -1,14 +1,18 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-import translationEN from './en/translation.json';
-import translationRU from './ru/translation.json';
 
 export const resources = {
   en: {
-    translation: translationEN,
+    ui: require('../../src/localization/en/ui.json'),
+    common: require('../../src/localization/en/common.json'),
   },
   ru: {
-    translation: translationRU,
+    ui: require('../../src/localization/ru/ui.json'),
+    common: require('../../src/localization/ru/common.json'),
+  },
+  ua: {
+    ui: require('../../src/localization/ua/ui.json'),
+    common: require('../../src/localization/ua/common.json'),
   },
 };
 

@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "required": "This field is required"
+  },
+  "inputs": {
+    "first-name": "first name"
+  }
+}

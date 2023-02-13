@@ -15,7 +15,7 @@ const WelcomeScreen: FC<Props> = ({navigation}) => {
   return (
     <View>
       <Text>WelcomeScreen</Text>
-      <Text>{t('translation:common.button')}</Text>
+      <Text>{t('common:contacts')}</Text>
 
       <Button
         onPress={() => i18n.changeLanguage('en')}
