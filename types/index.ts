@@ -1,3 +1,5 @@
+import {Locale, Services} from 'papa-vinyl-types';
+
 export enum HTTP_STATUS {
   CONTINUE = 100,
   SWITCHING_PROTOCOLS = 101,
@@ -50,54 +52,20 @@ export enum HTTP_STATUS {
 
 export default HTTP_STATUS;
 
-type Sort = {
-  empty: boolean;
-  sorted: boolean;
-  unsorted: boolean;
-};
-
-type Pageable = {
-  sort: Sort;
-  offset: number;
-  pageSize: number;
-  pageNumber: number;
-  paged: boolean;
-  unpaged: boolean;
-};
-
-export type IPage<T> = {
-  content: T[];
-  pageable: Pageable;
-  last: boolean;
-  totalPages: number;
-  totalElements: number;
-  size: number;
-  number: number;
-  sort: Sort;
-  first: boolean;
-  numberOfElements: number;
-  empty: boolean;
-};
-
-enum ORDER {
-  ASC = 'asc',
-  DESC = 'desc',
-}
-
-export type IQueryParams = {
-  limit?: number;
-  page?: number;
-  sort?: string;
-  order?: ORDER;
-};
-
-export enum Locale {
-  UA = 'ua',
-  EN = 'en',
-  RU = 'ru',
-}
 export const LOCALES = [Locale.UA, Locale.EN, Locale.RU];
 
 export enum LocaleNamespaces {
   COMMON = 'common',
 }
+
+export type IQueryParams = Services.QueryParams;
+
+export type IPage<T> = Services.Page<T>;
+
+export type BackendError = {
+  error: string;
+  message: string;
+  path: string;
+  status: number;
+  timestamp: string;
+};

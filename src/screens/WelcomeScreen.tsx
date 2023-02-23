@@ -1,12 +1,12 @@
 import {View, Text, Button} from 'react-native';
 import React, {FC} from 'react';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../navigation/RootNavigation';
+import {RootStackList} from '../navigation/RootNavigation';
 import {useTranslation} from 'react-i18next';
 import i18n from 'i18next';
 
 interface Props {
-  navigation: NativeStackNavigationProp<RootStackParamList>;
+  navigation: NativeStackNavigationProp<RootStackList>;
 }
 
 const WelcomeScreen: FC<Props> = ({navigation}) => {

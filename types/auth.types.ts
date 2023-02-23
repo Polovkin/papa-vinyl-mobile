@@ -5,17 +5,20 @@ export type LoginPayload = {
   password: string;
 };
 
+export interface RegisterPayload extends LoginPayload {
+  email: string;
+}
+
 export type LoginResponse = {
   accessToken: string;
-  refreshToken: string;
   email: string;
-  phone: string;
   roles: USER_ROLES[];
   username: string;
 };
 
+export type RegisterResponse = string;
+
 export type RefreshTokenResponse = {
   accessToken: string;
-  refreshToken: string;
   tokenType: string;
 };

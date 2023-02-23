@@ -3,11 +3,11 @@ import LoginScreen from '../screens/LoginScreen';
 import * as React from 'react';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
-export type RootStackParamList = {
+export type RootStackList = {
   Welcome: undefined;
   Login: undefined;
 };
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackList>();
 const RootNavigator = () => {
   return (
     <RootStack.Navigator initialRouteName="Login">

@@ -2,27 +2,25 @@ const headers = {
   Accept: 'application/json, text/plain, */*',
   'Content-Type': 'application/json;charset=utf-8',
 };
-// @ts-ignore
-//import {BASE_URL} from '@env';
+
+const baseUrl = 'http://192.168.31.221:8080/api';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
-    const path = 'http://192.168.31.82/api' + url;
-
-    const response = await fetch(path, {
+    const response = await fetch(baseUrl + url, {
       credentials: 'include',
       headers,
       ...options,
     });
-
     const data = await response.json();
-    if (response.ok) {
-      return data;
+    if (!response.ok) {
+      throw data;
     }
-    throw data;
+
+    return data;
   }
 
-  async post<T>(url: string, data?: unknown, options?: Request): Promise<T> {
+  async post<T>(url: string, data?: unknown, options?: any): Promise<T> {
     const response = await this.fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -32,7 +30,7 @@ class HttpService {
     return response as T;
   }
 
-  async get<T>(url: string, options?: Request): Promise<T> {
+  async get<T>(url: string, options?: any): Promise<T> {
     const response = await this.fetch(url, {
       method: 'GET',
       ...options,
@@ -40,7 +38,7 @@ class HttpService {
     return response as T;
   }
 
-  async put<T>(url: string, data?: unknown, options?: Request): Promise<T> {
+  async put<T>(url: string, data?: unknown, options?: any): Promise<T> {
     const response = await this.fetch(url, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -49,7 +47,7 @@ class HttpService {
     return response as T;
   }
 
-  async patch<T>(url: string, data?: unknown, options?: Request): Promise<T> {
+  async patch<T>(url: string, data?: unknown, options?: any): Promise<T> {
     const response = await this.fetch(url, {
       method: 'PATCH',
       body: JSON.stringify(data),
@@ -58,7 +56,7 @@ class HttpService {
     return response as T;
   }
 
-  async delete(url: string, options?: Request): Promise<void> {
+  async delete<T>(url: string, options?: any): Promise<void> {
     await this.fetch(url, {
       method: 'DELETE',
       ...options,

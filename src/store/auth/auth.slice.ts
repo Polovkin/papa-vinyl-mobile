@@ -4,6 +4,7 @@ import AsyncStorageService, {
   STORAGE_KEYS,
 } from '../../services/storage/async-storage.service';
 import {IUser} from '../../../types/vendors/user.types';
+import {LoginResponse} from '../../../types/auth.types';
 
 interface IAuthState {
   user: IUser | null;
@@ -39,13 +40,11 @@ export const authSlice = createSlice({
 
       AsyncStorageService.clear().then(r => console.log(r));
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(LOGIN.fulfilled, (state, action) => {
-      const {accessToken, email, phone, roles, username} = action.payload;
+    LOGIN_USER: (state, action: PayloadAction<LoginResponse>) => {
+      const {accessToken, email, roles, username} = action.payload;
       const user: IUser = {
         email,
-        phone,
+        phone: '',
         username,
         roles,
       };
@@ -55,8 +54,23 @@ export const authSlice = createSlice({
       state.auth.accessToken = accessToken;
       state.auth.isAuthenticated = isAuthenticated;
 
-      AsyncStorageService.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-    });
+      const UserLocalStorage = {
+        user,
+        isAuthenticated,
+      };
+
+      AsyncStorageService.setItem(STORAGE_KEYS.USER, UserLocalStorage).then();
+    },
+    LOGOUT_STATE: state => {
+      state.user = null;
+      state.auth.accessToken = null;
+      state.auth.isAuthenticated = false;
+
+      AsyncStorageService.clear().then(r => console.log(r));
+    },
+  },
+  extraReducers: builder => {
+    builder.addCase(LOGIN.fulfilled, () => {});
 
     builder.addCase(LOGIN.rejected, state => {
       state.user = null;
@@ -65,5 +79,6 @@ export const authSlice = createSlice({
     });
   },
 });
-export const {SET_ACCESS_TOKEN, LOGOUT} = authSlice.actions;
+export const {SET_ACCESS_TOKEN, LOGOUT, LOGIN_USER, LOGOUT_STATE} =
+  authSlice.actions;
 export default authSlice.reducer;

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export enum STORAGE_KEYS {
   ACCESS_TOKEN = 'accessToken',
+  USER = 'user',
 }
 
 class AsyncStorageService {
