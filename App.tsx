@@ -4,12 +4,21 @@ import {Provider} from 'react-redux';
 import {persistor, store} from './src/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './src/navigation/Navigation';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {GRAPHQL_URL} from './src/config';
+
+const client = new ApolloClient({
+  uri: GRAPHQL_URL,
+  cache: new InMemoryCache(),
+});
 
 function App(): JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Navigation />
+        <ApolloProvider client={client}>
+          <Navigation />
+        </ApolloProvider>
       </PersistGate>
     </Provider>
   );

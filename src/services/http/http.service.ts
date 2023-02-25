@@ -1,9 +1,11 @@
+import {API_URL} from '../../config';
+
 const headers = {
   Accept: 'application/json, text/plain, */*',
   'Content-Type': 'application/json;charset=utf-8',
 };
 
-const baseUrl = 'http://192.168.31.221:8080/api';
+const baseUrl = API_URL + '/api';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {

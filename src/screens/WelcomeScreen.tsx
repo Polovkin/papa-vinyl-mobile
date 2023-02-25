@@ -1,23 +1,25 @@
-import {View, Text, Button} from 'react-native';
-import React, {FC} from 'react';
+import {View, Text} from 'react-native';
+import React, {FC, useEffect} from 'react';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackList} from '../navigation/RootNavigation';
 import {useTranslation} from 'react-i18next';
-import i18n from 'i18next';
-
+import {useQuery, gql} from '@apollo/client';
 interface Props {
   navigation: NativeStackNavigationProp<RootStackList>;
 }
 
-const WelcomeScreen: FC<Props> = ({navigation}) => {
+const WelcomeScreen: FC<Props> = () => {
   const {t} = useTranslation();
+
+
+
 
   return (
     <View>
       <Text>WelcomeScreen</Text>
       <Text>{t('common:contacts')}</Text>
 
-      <Button
+      {/*    <Button
         onPress={() => i18n.changeLanguage('en')}
         title={t('switchLanguage', {lng: 'en'})}
       />
@@ -28,9 +30,11 @@ const WelcomeScreen: FC<Props> = ({navigation}) => {
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate('Login')}
-      />
+      />*/}
     </View>
   );
 };
+
+
 
 export default WelcomeScreen;
