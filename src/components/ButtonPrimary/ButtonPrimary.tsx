@@ -26,9 +26,10 @@ const ButtonPrimary: FC<Props> = props => {
     default:
       typeStyle = 'bg-secondary';
   }
-  console.log(colorType);
+
   return (
     <TouchableOpacity
+      {...props}
       testID={'button-primary'}
       className={cn(
         'm-4 m-1 flex w-32 items-center justify-center rounded-xl py-2 px-4',

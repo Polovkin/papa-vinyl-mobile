@@ -24,7 +24,7 @@ const RootNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Welcome">
+      initialRouteName="Login">
       {auth.isAuthenticated ? (
         <>
           <RootStack.Screen name="Shop" component={ShopScreen} />

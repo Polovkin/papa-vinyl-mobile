@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../hooks';
-import {Text, View} from 'react-native';
-import ButtonPrimary from '../components/ButtonPrimary/button-primary';
+import {Text} from 'react-native';
+import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 import React, {FC} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackList} from '../navigation/RootNavigation';

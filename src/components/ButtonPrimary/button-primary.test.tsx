@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonPrimary from './button-primary';
+import ButtonPrimary from './ButtonPrimary';
 import {render, fireEvent} from '@testing-library/react-native';
 
 describe('ButtonPrimary', () => {
