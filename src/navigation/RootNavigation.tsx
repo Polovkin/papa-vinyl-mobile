@@ -7,9 +7,9 @@ import {useEffect} from 'react';
 import ShopScreen from '../screens/ShopScreen';
 
 export type RootStackList = {
-  Welcome: undefined;
   Shop: undefined;
   Login: undefined;
+  Welcome: undefined;
 };
 const RootStack = createNativeStackNavigator<RootStackList>();
 const RootNavigator = () => {
@@ -20,14 +20,20 @@ const RootNavigator = () => {
   }, [auth]);
 
   return (
-    <RootStack.Navigator initialRouteName="Login">
+    <RootStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="Welcome">
       {auth.isAuthenticated ? (
         <>
-          <RootStack.Screen name="Welcome" component={WelcomeScreen} />
           <RootStack.Screen name="Shop" component={ShopScreen} />
         </>
       ) : (
-        <RootStack.Screen name="Login" component={LoginScreen} />
+        <>
+          <RootStack.Screen name="Welcome" component={WelcomeScreen} />
+          <RootStack.Screen name="Login" component={LoginScreen} />
+        </>
       )}
     </RootStack.Navigator>
   );
