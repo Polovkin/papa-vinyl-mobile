@@ -12,41 +12,19 @@ import {graphql} from '../gql';
 interface Props {
   navigation: NativeStackNavigationProp<RootStackList>;
 }
-const getPosts = graphql(/* GraphQL */ `
-  query getPosts {
-    recentPosts(count: 10, offset: 0) {
-      id
-      category
-    }
-  }
-`);
 
 const LoginScreen: FC<Props> = () => {
   const {auth} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
-  const {data} = useQuery(getPosts);
-
-  useEffect(() => {
-    data?.recentPosts.map(item => {
-      console.log(item?.id);
-      console.log(item?.category);
-    });
-  }, [data]);
 
   const login = async () => {
-    console.log('login');
     dispatch(LOGIN({password: 'polova1141', username: 'papavinyl-admin'}));
-  };
-
-  const logout = async () => {
-    console.log('login');
-    dispatch(LOGOUT());
   };
 
   return (
     <View>
       <ButtonPrimary text={'login'} onPress={login} />
-      <ButtonPrimary text={'Logout'} onPress={logout} />
+
       <Text>{auth.accessToken}</Text>
       <Text>{auth.isAuthenticated ? 'auth' : 'none'}</Text>
     </View>
