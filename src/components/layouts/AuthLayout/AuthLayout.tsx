@@ -7,7 +7,7 @@ type Props = {
 
 const AuthLayout: FC<Props> = ({children}) => {
   return (
-    <View className={'flex flex-1 items-center justify-center p-2'}>
+    <View className={'flex flex-1 items-center justify-center p-10'}>
       {children}
     </View>
   );

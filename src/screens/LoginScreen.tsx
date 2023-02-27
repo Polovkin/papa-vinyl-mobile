@@ -6,7 +6,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackList} from '../navigation/RootNavigation';
 import {LOGIN} from '../store/auth/auth-async.actions';
 import AuthLayout from '../components/layouts/AuthLayout/AuthLayout';
-
+import {BASE_URL} from '@env';
 interface Props {
   navigation: NativeStackNavigationProp<RootStackList>;
 }
@@ -23,6 +23,7 @@ const LoginScreen: FC<Props> = () => {
     <AuthLayout>
       <ButtonPrimary text={'login'} onPress={login} />
 
+      <Text>фі - {BASE_URL}</Text>
       <Text>{auth.accessToken}</Text>
       <Text>{auth.isAuthenticated ? 'auth' : 'none'}</Text>
     </AuthLayout>

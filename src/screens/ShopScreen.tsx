@@ -35,7 +35,7 @@ const ShopScreen: FC<Props> = () => {
     );
   };
   return (
-    <View>
+    <View className={'pt-10'}>
       <ButtonPrimary text={'Logout'} onPress={() => dispatch(LOGOUT())} />
       <ButtonPrimary
         onPress={check}

@@ -1,14 +1,15 @@
-import {API_URL} from '../../config';
+import {BASE_URL} from '@env';
 
 const headers = {
   Accept: 'application/json, text/plain, */*',
   'Content-Type': 'application/json;charset=utf-8',
 };
 
-const baseUrl = API_URL + '/api';
+const baseUrl = BASE_URL + '/api';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
+    console.log(baseUrl);
     const response = await fetch(baseUrl + url, {
       credentials: 'include',
       headers,
