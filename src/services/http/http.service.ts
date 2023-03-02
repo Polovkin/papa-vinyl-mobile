@@ -6,15 +6,13 @@ const baseUrl = BASE_URL + '/api';
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
     const {
-      auth: {
-        auth: {accessToken},
-      },
+      auth: {auth},
     } = store.getState();
 
     const headers = new Headers({
       Accept: 'application/json, text/plain, */*',
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${auth.accessToken}s`,
     });
 
     const response = await fetch(baseUrl + url, {
@@ -22,6 +20,19 @@ class HttpService {
       ...options,
     });
     const data = await response.json();
+
+    if (response.status === 401) {
+      await fetch(baseUrl + '/auth/mobile/refreshtoken', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify({
+          refreshToken: auth.refreshToken,
+        }),
+      });
+    }
 
     if (!response.ok) {
       throw data;

@@ -14,22 +14,13 @@ interface Props {
 }
 
 const ShopScreen: FC<Props> = () => {
-  const {
-    auth: {accessToken},
-  } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
 
   const check = async () => {
-    await HttpService.post(
-      '/auth/refreshtoken',
-      {},
-      {
-        credentials: 'include',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
+    await HttpService.post('/categories', {
+      name: Math.random().toString(36).substring(7),
+      order: 1,
+    });
   };
   return (
     <View className={'pt-10'}>
