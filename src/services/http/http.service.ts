@@ -1,21 +1,28 @@
 import {BASE_URL} from '@env';
-
-const headers = {
-  Accept: 'application/json, text/plain, */*',
-  'Content-Type': 'application/json;charset=utf-8',
-};
+import {store} from '../../store';
 
 const baseUrl = BASE_URL + '/api';
 
 class HttpService {
   async fetch(url: string, options?: any): Promise<Response> {
-    console.log(baseUrl);
+    const {
+      auth: {
+        auth: {accessToken},
+      },
+    } = store.getState();
+
+    const headers = new Headers({
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: `Bearer ${accessToken}`,
+    });
+
     const response = await fetch(baseUrl + url, {
-      credentials: 'include',
       headers,
       ...options,
     });
     const data = await response.json();
+
     if (!response.ok) {
       throw data;
     }
@@ -59,7 +66,7 @@ class HttpService {
     return response as T;
   }
 
-  async delete<T>(url: string, options?: any): Promise<void> {
+  async delete(url: string, options?: any): Promise<void> {
     await this.fetch(url, {
       method: 'DELETE',
       ...options,

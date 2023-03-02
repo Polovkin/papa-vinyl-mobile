@@ -11,6 +11,7 @@ export interface RegisterPayload extends LoginPayload {
 
 export type LoginResponse = {
   accessToken: string;
+  refreshToken: string;
   email: string;
   roles: USER_ROLES[];
   username: string;

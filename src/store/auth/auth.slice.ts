@@ -1,8 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {LOGIN} from './auth-async.actions';
-import AsyncStorageService, {
-  STORAGE_KEYS,
-} from '../../services/storage/async-storage.service';
+import {LOGIN, LOGOUT} from './auth-async.actions';
 import {IUser} from '../../../types/vendors/user.types';
 import {LoginResponse} from '../../../types/auth.types';
 
@@ -10,6 +7,7 @@ interface IAuthState {
   user: IUser | null;
   auth: {
     accessToken: string | null;
+    refreshToken: string | null;
     isAuthenticated: boolean;
   };
 }
@@ -17,6 +15,7 @@ interface IAuthState {
 const initialState: IAuthState = {
   auth: {
     accessToken: null,
+    refreshToken: null,
     isAuthenticated: false,
   },
   user: null,
@@ -33,15 +32,9 @@ export const authSlice = createSlice({
     SET_USER: (state, action: PayloadAction<IUser | null>) => {
       state.user = action.payload;
     },
-    LOGOUT: state => {
-      state.user = null;
-      state.auth.accessToken = null;
-      state.auth.isAuthenticated = false;
-
-      AsyncStorageService.clear().then(r => console.log(r));
-    },
     LOGIN_USER: (state, action: PayloadAction<LoginResponse>) => {
-      const {accessToken, email, roles, username} = action.payload;
+      const {accessToken, refreshToken, email, roles, username} =
+        action.payload;
       const user: IUser = {
         email,
         phone: '',
@@ -52,25 +45,16 @@ export const authSlice = createSlice({
 
       state.user = user;
       state.auth.accessToken = accessToken;
+      state.auth.refreshToken = refreshToken;
       state.auth.isAuthenticated = isAuthenticated;
-
-      const UserLocalStorage = {
-        user,
-        isAuthenticated,
-      };
-
-      AsyncStorageService.setItem(STORAGE_KEYS.USER, UserLocalStorage).then();
     },
     LOGOUT_STATE: state => {
-      state.user = null;
-      state.auth.accessToken = null;
-      state.auth.isAuthenticated = false;
-
-      AsyncStorageService.clear().then(r => console.log(r));
+      state.user = initialState.user;
+      state.auth = initialState.auth;
     },
   },
   extraReducers: builder => {
-    builder.addCase(LOGIN.fulfilled, () => {});
+    builder.addCase(LOGOUT.fulfilled, () => {});
 
     builder.addCase(LOGIN.rejected, state => {
       state.user = null;
@@ -79,6 +63,5 @@ export const authSlice = createSlice({
     });
   },
 });
-export const {SET_ACCESS_TOKEN, LOGOUT, LOGIN_USER, LOGOUT_STATE} =
-  authSlice.actions;
+export const {SET_ACCESS_TOKEN, LOGIN_USER, LOGOUT_STATE} = authSlice.actions;
 export default authSlice.reducer;

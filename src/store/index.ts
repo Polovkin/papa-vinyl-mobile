@@ -1,4 +1,4 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
 import {persistReducer, persistStore} from 'redux-persist';
 //import {categoriesSlice} from './api/categories.slice';
@@ -12,7 +12,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist/es/constants';
-import {categoriesSlice} from './api/categories.slice';
 
 const persistConfig = {
   key: 'root',
@@ -27,7 +26,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(categoriesSlice.middleware);
+    });
   },
 
   reducer: persistedReducer,

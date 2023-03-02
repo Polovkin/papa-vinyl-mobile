@@ -5,10 +5,10 @@ import {persistor, store} from './src/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './src/navigation/Navigation';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
-import {GRAPHQL_URL} from './src/config';
+import {BASE_URL} from '@env';
 
 const client = new ApolloClient({
-  uri: GRAPHQL_URL,
+  uri: BASE_URL + '/graphql',
   cache: new InMemoryCache(),
 });
 

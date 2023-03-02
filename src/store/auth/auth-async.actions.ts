@@ -17,7 +17,7 @@ const LOGIN = createAsyncThunk<LoginResponse, LoginPayload, {state: RootState}>(
   async (credentials, {rejectWithValue, dispatch}) => {
     try {
       const response = await HttpService.post<LoginResponse>(
-        '/auth/login',
+        '/auth/mobile/login',
         credentials,
       );
       dispatch(LOGIN_USER(response));
@@ -39,9 +39,10 @@ const LOGOUT = createAsyncThunk<void, undefined, {state: RootState}>(
   AUTH_ACTIONS.LOGOUT,
   async (_, {dispatch}) => {
     try {
-      await HttpService.delete('/auth/logout');
-    } catch (err: any) {
-      console.log(err);
+      await HttpService.delete('/auth/mobile/logout');
+    } catch (err: unknown) {
+      const error = err as BackendError;
+      console.log(error);
     }
 
     dispatch(LOGOUT_STATE());

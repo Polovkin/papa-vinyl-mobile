@@ -1,4 +1,5 @@
 import {Locale, Services} from 'papa-vinyl-types';
+import {IUser} from './vendors/user.types';
 
 export enum HTTP_STATUS {
   CONTINUE = 100,
@@ -68,4 +69,11 @@ export type BackendError = {
   path: string;
   status: number;
   timestamp: string;
+};
+
+export type LocalStorageUser = {
+  user: IUser;
+  isAuthenticated: boolean;
+  refreshToken: string;
+  accessToken: string;
 };

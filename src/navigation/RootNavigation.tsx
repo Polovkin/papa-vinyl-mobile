@@ -3,7 +3,7 @@ import LoginScreen from '../screens/LoginScreen';
 import * as React from 'react';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import {useAppSelector} from '../hooks';
-import {useEffect} from 'react';
+
 import ShopScreen from '../screens/ShopScreen';
 
 export type RootStackList = {
@@ -14,10 +14,6 @@ export type RootStackList = {
 const RootStack = createNativeStackNavigator<RootStackList>();
 const RootNavigator = () => {
   const {auth} = useAppSelector(state => state.auth);
-
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
 
   return (
     <RootStack.Navigator
