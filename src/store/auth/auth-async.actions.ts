@@ -1,7 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import {RootState} from '../index';
-import {LoginPayload, LoginResponse} from '../../../types/auth.types';
+import {
+  LoginPayload,
+  LoginResponse,
+  RefreshTokenResponse,
+} from '../../../types/auth.types';
 import HTTP_STATUS, {BackendError} from '../../../types';
 import HttpService from '../../services/http/http.service';
 import {LOGIN_USER, LOGOUT_STATE} from './auth.slice';
@@ -25,12 +29,7 @@ const LOGIN = createAsyncThunk<LoginResponse, LoginPayload, {state: RootState}>(
     } catch (err: unknown) {
       const error = err as BackendError;
       console.log(error);
-      /*    setTimeout(() => {
-        dispatch(CLOSE_ALERT())
-      }, 3000) */
-      if (error.status === HTTP_STATUS.UNAUTHORIZED) {
-        // alert('401')
-      }
+
       return rejectWithValue(error.message);
     }
   },
@@ -40,18 +39,31 @@ const LOGOUT = createAsyncThunk<void, undefined, {state: RootState}>(
   async (_, {dispatch}) => {
     try {
       await HttpService.delete('/auth/mobile/logout');
-    } catch (err: unknown) {
-      const error = err as BackendError;
-      console.log(error);
-    }
+    } catch (e: unknown) {}
 
     dispatch(LOGOUT_STATE());
   },
 );
-const REFRESH_TOKEN_ACTION = createAsyncThunk(
+
+const REFRESH_TOKEN_ACTION = createAsyncThunk<
+  RefreshTokenResponse,
+  string,
+  {state: RootState}
+>(
   AUTH_ACTIONS.REFRESH_TOKEN,
-  async () => {
-    return HttpService.post<LoginResponse>('/auth/refreshtoken');
+  async (refreshToken, {rejectWithValue, dispatch}) => {
+    try {
+      return HttpService.post<LoginResponse>('/auth/mobile/refreshtoken', {
+        refreshToken,
+      });
+    } catch (e: unknown) {
+      const error = e as BackendError;
+      if (error.status === HTTP_STATUS.UNAUTHORIZED) {
+        dispatch(LOGOUT);
+      }
+
+      return rejectWithValue(e);
+    }
   },
 );
 

@@ -1,7 +1,8 @@
 import {CodegenConfig} from '@graphql-codegen/cli';
-import {BASE_URL} from '@env';
+import {baseUrl} from './src/config';
+
 const config: CodegenConfig = {
-  schema: BASE_URL + '/graphql',
+  schema: baseUrl + '/graphql',
   documents: ['src/**/*.tsx'],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {

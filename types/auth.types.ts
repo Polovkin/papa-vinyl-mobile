@@ -17,9 +17,10 @@ export type LoginResponse = {
   username: string;
 };
 
-export type RegisterResponse = string;
-
 export type RefreshTokenResponse = {
   accessToken: string;
-  tokenType: string;
+  roles: USER_ROLES[];
+  username: string;
 };
+
+export type RegisterResponse = string;

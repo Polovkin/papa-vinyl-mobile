@@ -1,7 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
 import {persistReducer, persistStore} from 'redux-persist';
-//import {categoriesSlice} from './api/categories.slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import rootReducer from './root.reducer';
 import {

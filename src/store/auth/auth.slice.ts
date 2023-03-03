@@ -1,5 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import {LOGIN, LOGOUT} from './auth-async.actions';
+import {LOGIN, LOGOUT, REFRESH_TOKEN_ACTION} from './auth-async.actions';
 import {IUser} from '../../../types/vendors/user.types';
 import {LoginResponse} from '../../../types/auth.types';
 
@@ -60,6 +60,15 @@ export const authSlice = createSlice({
       state.user = null;
       state.auth.accessToken = null;
       state.auth.isAuthenticated = false;
+    });
+    builder.addCase(REFRESH_TOKEN_ACTION.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.auth.accessToken = action.payload.accessToken;
+      }
+    });
+    builder.addCase(REFRESH_TOKEN_ACTION.rejected, state => {
+      state.user = initialState.user;
+      state.auth = initialState.auth;
     });
   },
 });
