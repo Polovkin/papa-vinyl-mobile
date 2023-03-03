@@ -4,7 +4,7 @@ import ButtonPrimary from '../components/ButtonPrimary/ButtonPrimary';
 import React, {FC} from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackList} from '../navigation/RootNavigation';
-import {LOGIN} from '../store/auth/auth-async.actions';
+import {LOGIN, REGISTER} from '../store/auth/auth-async.actions';
 import AuthLayout from '../components/layouts/AuthLayout/AuthLayout';
 import {baseUrl} from '../config';
 
@@ -20,13 +20,20 @@ const LoginScreen: FC<Props> = () => {
     dispatch(LOGIN({password: 'polova1141', username: 'papavinyl-admin'}));
   };
 
+  const register = async () => {
+    dispatch(
+      REGISTER({
+        password: 'polova11412',
+        username: 'papavinyl-admin2',
+        email: 'm@test.ya',
+      }),
+    );
+  };
+
   return (
     <AuthLayout>
       <ButtonPrimary text={'login'} onPress={login} />
-
-      <Text>фі - {baseUrl}</Text>
-      <Text>{auth.accessToken}</Text>
-      <Text>{auth.isAuthenticated ? 'auth' : 'none'}</Text>
+      <ButtonPrimary text={'register'} onPress={register} />
     </AuthLayout>
   );
 };

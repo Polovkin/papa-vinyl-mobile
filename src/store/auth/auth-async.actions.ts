@@ -4,8 +4,8 @@ import {RootState} from '../index';
 import {
   LoginPayload,
   LoginResponse,
-  RefreshTokenResponse,
-} from '../../../types/auth.types';
+  RefreshTokenResponse, RegisterPayload
+} from "../../../types/auth.types";
 import HTTP_STATUS, {BackendError} from '../../../types';
 import HttpService from '../../services/http/http.service';
 import {LOGIN_USER, LOGOUT_STATE} from './auth.slice';
@@ -13,6 +13,7 @@ import {LOGIN_USER, LOGOUT_STATE} from './auth.slice';
 enum AUTH_ACTIONS {
   LOGIN = 'auth/LOGIN',
   LOGOUT = 'auth/LOGOUT',
+  REGISTER = 'auth/REGISTER',
   REFRESH_TOKEN = 'auth/REFRESH_TOKEN',
 }
 
@@ -34,6 +35,21 @@ const LOGIN = createAsyncThunk<LoginResponse, LoginPayload, {state: RootState}>(
     }
   },
 );
+
+const REGISTER = createAsyncThunk<string, RegisterPayload, {state: RootState}>(
+  AUTH_ACTIONS.REGISTER,
+  async (credentials, {rejectWithValue}) => {
+    try {
+      return await HttpService.post<string>('/auth/signup', credentials);
+    } catch (err: unknown) {
+      const error = err as BackendError;
+      console.log(error);
+
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
 const LOGOUT = createAsyncThunk<void, undefined, {state: RootState}>(
   AUTH_ACTIONS.LOGOUT,
   async (_, {dispatch}) => {
@@ -67,4 +83,4 @@ const REFRESH_TOKEN_ACTION = createAsyncThunk<
   },
 );
 
-export {LOGIN, AUTH_ACTIONS, REFRESH_TOKEN_ACTION, LOGOUT};
+export {LOGIN, AUTH_ACTIONS, REFRESH_TOKEN_ACTION, LOGOUT, REGISTER};
