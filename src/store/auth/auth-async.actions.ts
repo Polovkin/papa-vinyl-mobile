@@ -4,11 +4,13 @@ import {RootState} from '../index';
 import {
   LoginPayload,
   LoginResponse,
-  RefreshTokenResponse, RegisterPayload
-} from "../../../types/auth.types";
+  RefreshTokenResponse,
+  RegisterPayload,
+} from '../../../types/auth.types';
 import HTTP_STATUS, {BackendError} from '../../../types';
 import HttpService from '../../services/http/http.service';
 import {LOGIN_USER, LOGOUT_STATE} from './auth.slice';
+import Toast from 'react-native-toast-message';
 
 enum AUTH_ACTIONS {
   LOGIN = 'auth/LOGIN',
@@ -41,9 +43,18 @@ const REGISTER = createAsyncThunk<string, RegisterPayload, {state: RootState}>(
   async (credentials, {rejectWithValue}) => {
     try {
       return await HttpService.post<string>('/auth/signup', credentials);
-    } catch (err: unknown) {
-      const error = err as BackendError;
-      console.log(error);
+    } catch (e: unknown) {
+      const error = e as BackendError;
+      if (
+        error.status === HTTP_STATUS.CONFLICT ||
+        error.status === HTTP_STATUS.BAD_REQUEST
+      ) {
+        Toast.show({
+          type: 'error',
+          text1: 'Hello',
+          text2: 'This is some something 👋',
+        });
+      }
 
       return rejectWithValue(error.message);
     }

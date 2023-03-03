@@ -6,6 +6,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './src/navigation/Navigation';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {baseUrl} from './src/config';
+import Toast from 'react-native-toast-message';
+import {toastConfig} from './src/components/Toast/toat.config';
 
 const client = new ApolloClient({
   uri: baseUrl + '/graphql',
@@ -14,13 +16,16 @@ const client = new ApolloClient({
 
 function App(): JSX.Element {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ApolloProvider client={client}>
-          <Navigation />
-        </ApolloProvider>
-      </PersistGate>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ApolloProvider client={client}>
+            <Navigation />
+          </ApolloProvider>
+        </PersistGate>
+      </Provider>
+      <Toast config={toastConfig} />
+    </>
   );
 }
 
